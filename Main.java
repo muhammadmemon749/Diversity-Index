@@ -1,66 +1,72 @@
-//Faith
+// @author (Yazan)
 
-package App;
-
-import java.util.ArrayList;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Main {
+
     public static void main(String[] args) {
-        Company abc = new Company("ABC", 50000, 45000, 49.8, 50.2, 60.0, 10);
-        Company good = new Company("good co.", 100000, 100000, 47.0, 53.0, 23.6, 1);
-        Company bad = new Company("bad inc.", 15000, 90000, 39.5, 60.5, 31.1, 5);
+        SwingUtilities.invokeLater(() -> CompanyPage.createCompanyPageGUI());
+        SwingUtilities.invokeLater(() -> createWelcomePageGUI());
+    }
 
-        ArrayList<Company> companies = new ArrayList<Company>();
-        companies.add(abc);
-        companies.add(good);
-        companies.add(bad);
+    static void createWelcomePageGUI() {
+        // Creating the frame (page)
+        JFrame frame = new JFrame("Starting Page");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(1000, 800);
+        frame.setLocationRelativeTo(null);
+        frame.setLayout(new BorderLayout(10, 10));
 
-        Ranker ranker = new Ranker(companies);
-        ranker.rankGenderWages();
-        /*int rank = 1;
-        for (Company a : ranker.genderWageRanking) {
-            System.out.println(rank + ". " + a.name);
-            rank++;
-        }
+        // Create a JPanel for the title (DICE)
+        JPanel titlePanel = new JPanel();
+        JTextArea title = new JTextArea();
+        title.setEditable(false);
+        title.setText("DICE: Diversity Index for Corporate Equality");
+        Font titleFont = new Font("Times New Roman", Font.BOLD, 40);
+        title.setFont(titleFont);
+        title.setAlignmentX(Component.CENTER_ALIGNMENT);
+        title.setAlignmentY(Component.CENTER_ALIGNMENT);
+        titlePanel.add(title, BorderLayout.NORTH);
 
-        System.out.println();*/
-        ranker.rankGenderRatio();
-        /*rank = 1;
-        for (Company a : ranker.genderRatioRanking) {
-            System.out.println(rank + ". " + a.name);
-            rank++;
-        }*/
+        // Create a JPanel for search bar
+        JPanel searchPanel = new JPanel();
+        JTextArea searchBar = new JTextArea();
+        searchBar.setAlignmentX(Component.CENTER_ALIGNMENT);
+        searchBar.setAlignmentY(Component.BOTTOM_ALIGNMENT);
+        // SEARCH BAR NOT WORKING
+        searchPanel.add(searchBar);
+        JButton searchButton = new JButton("Search");
+        searchPanel.add(searchButton);
 
-        System.out.println();
-        ranker.rankGenderOverall();
-        int rank = 1;
-        for (Company a : ranker.genderOverallRanking) {
-            System.out.println(rank + ". " + a.name);
-            rank++;
-        }
+        // Create a panel for filters
+        JPanel filtersPanel = new JPanel();
+        JButton filterButton = new JButton("Apply Filter");
+        filtersPanel.add(filterButton, BorderLayout.NORTH);
 
-        System.out.println();
-        ranker.rankMinorityRatio();
-        rank = 1;
-        for (Company a : ranker.minorityRatioRanking) {
-            System.out.println(rank + ". " + a.name);
-            rank++;
-        }
+        // Create a panel for results
+        JPanel resultsPanel = new JPanel();
+        resultsPanel.add(searchPanel, Component.TOP_ALIGNMENT);
 
-        System.out.println();
-        ranker.rankSafety();
-        rank = 1;
-        for (Company a : ranker.safetyRanking) {
-            System.out.println(rank + ". " + a.name);
-            rank++;
-        }
+        // adding the panels to the frame
+        frame.add(titlePanel, BorderLayout.NORTH);
+        frame.add(resultsPanel, BorderLayout.CENTER);
+        frame.add(filtersPanel, BorderLayout.WEST);
 
-        System.out.println();
-        ranker.rankOverall();
-        rank = 1;
-        for (Company a : ranker.overallRanking) {
-            System.out.println(rank + ". " + a.name);
-            rank++;
-        }
+        // Setting the size of the panels
+        titlePanel.setPreferredSize(new Dimension(100, 100));
+        filtersPanel.setPreferredSize(new Dimension(200, 100));
+        searchPanel.setPreferredSize(new Dimension(700, 75));
+        resultsPanel.setPreferredSize(new Dimension(100, 100));
+
+        // Panel colours
+        titlePanel.setBackground(Color.white);
+        searchPanel.setBackground(Color.DARK_GRAY);
+        filtersPanel.setBackground(Color.gray);
+        resultsPanel.setBackground(Color.WHITE);
+
+        frame.setVisible(true);
     }
 }
